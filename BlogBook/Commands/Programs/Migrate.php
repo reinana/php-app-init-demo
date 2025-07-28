@@ -1,4 +1,4 @@
-<?php 
+<?php
 // すべてのマイグレーションロジックを含んでいます。マイグレーションを実行したり、ロールバックしたり、新しいスキーマインストールを行うことができます。
 namespace Commands\Programs;
 
@@ -21,29 +21,28 @@ class Migrate extends AbstractCommand
     public function execute(): int
     {
         $rollback = $this->getArgumentValue('rollback');
-        if($rollback === false){
+        if ($rollback === false) {
             $this->log("Starting migration......");
             $this->migrate();
-        }
-        else{
+        } else {
             // ロールバックは設定されている場合はtrue、またはそれに添付されている値が整数として表されます。
             $rollback = $rollback === true ? 1 : (int) $rollback;
             $this->log("Running rollback....");
-            for($i = 0; $i < $rollback; $i++){
+            for ($i = 0; $i < $rollback; $i++) {
                 $this->rollback();
             }
         }
 
         return 0;
     }
-    private function migrate(): void {
+    private function migrate(): void
+    {
         $this->log("Running migrations...");
         $this->log("Migration ended...\n");
     }
 
-    private function rollback(): void {
+    private function rollback(): void
+    {
         $this->log("Rolling back migration...\n");
     }
 }
-
-?>

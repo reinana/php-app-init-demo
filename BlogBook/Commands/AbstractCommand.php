@@ -10,12 +10,13 @@ abstract class AbstractCommand implements Command
     protected array $argsMap = [];
     protected static ?string $alias = null;
 
-    protected static bool $requiredCommandValue = false;
+    protected static bool $requiredCommandValue = false; // テンプレートメソッド デザインパターン
 
     /**
      * @throws Exception
      */
     public function __construct(){
+        // コマンドがインスタンス化されるときに呼ばれる つまりconsoleのnew CommandClassの時 thisはMigrateなどを表す
         $this->setUpArgsMap();
     }
 
@@ -27,12 +28,12 @@ abstract class AbstractCommand implements Command
 
     private function setUpArgsMap(): void{
         //オリジナルのマッピングを設定
-        $args = $GLOBALS['argv'];
-        // エイリアスのインデックスが見つかるまで探索
+        $args = $GLOBALS['argv']; // 引数を配列に
+        // migrateなどのコマンドが配列のどこにあるか探す
         $startIndex  = array_search($this->getAlias(), $args);
 
         if($startIndex === false) throw new Exception(sprintf("Could not find alias %s", $this->getAlias()));
-        else $startIndex++;
+        else $startIndex++; // migrateの次から引数を取得するため
 
         $shellArgs = [];
 
