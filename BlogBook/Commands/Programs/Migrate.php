@@ -61,12 +61,13 @@ class Migrate extends AbstractCommand
     private function migrate(): void
     {
         $this->log("Running migrations...");
-
+        // 作ったテーブルから最後のマイグレーションを取得
         $lastMigration = $this->getLastMigration();
-        // ファイル名を日付順（ASC）に並べた配列を返します
+        // すべてのファイル名を日付順（ASC）に並べた配列を返します これは実行していないものもある
         $allMigrations = $this->getAllMigrationFiles();
+        // 直近のマイグレーションの次のファイルをマイグレーションの起点
         $startIndex = ($lastMigration) ? array_search($lastMigration, $allMigrations) + 1 : 0;
-
+        // 実行していないマイグレーションを実行していく
         for ($i = $startIndex; $i < count($allMigrations); $i++) {
             $filename = $allMigrations[$i];
 
