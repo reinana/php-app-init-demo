@@ -4,14 +4,14 @@ namespace Database\Migrations;
 
 use Database\SchemaMigration;
 
-class CreateUserTable1 implements SchemaMigration
+class CreateUsersTable1 implements SchemaMigration
 {
     public function up(): array
     {
         // マイグレーションロジックをここに追加してください
         return [
             "CREATE TABLE users (
-                id BIGINT PRIMARY KEY AUTO_INCREMENT,
+                userId BIGINT PRIMARY KEY AUTO_INCREMENT,
                 username VARCHAR(255) NOT NULL,
                 email VARCHAR(255) NOT NULL UNIQUE,
                 password VARCHAR(255) NOT NULL,

@@ -3,16 +3,16 @@ namespace Database\Migrations;
 
 use Database\SchemaMigration;
 
-class CreateCommentLikeTable implements SchemaMigration
+class CreateCommentLikesTable implements SchemaMigration
 {
     public function up(): array
     {
         // マイグレーションロジックをここに追加してください
         return [
-            "CREATE TABLE commentlike (
+            "CREATE TABLE commentlikes (
                 userId BIGINT NOT NULL,
                 commentId BIGINT NOT NULL,
-                FOREIGN KEY (userId) REFERENCES users(id) ON DELETE CASCADE,
+                FOREIGN KEY (userId) REFERENCES users(userId) ON DELETE CASCADE,
                 FOREIGN KEY (commentId) REFERENCES comments(commentId) ON DELETE CASCADE,
                 PRIMARY KEY (userId, commentId)
             )"
@@ -23,7 +23,7 @@ class CreateCommentLikeTable implements SchemaMigration
     {
         // ロールバックロジックを追加してください
         return [
-            "DROP TABLE commentlike"
+            "DROP TABLE commentlikes"
         ];
     }
 }

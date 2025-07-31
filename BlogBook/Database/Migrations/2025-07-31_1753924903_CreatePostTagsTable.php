@@ -3,25 +3,27 @@ namespace Database\Migrations;
 
 use Database\SchemaMigration;
 
-class CreatePostLikesTable implements SchemaMigration
+class CreatePostTagsTable implements SchemaMigration
 {
     public function up(): array
     {
         // マイグレーションロジックをここに追加してください
-        return ["CREATE TABLE postlikes (
-                userId BIGINT NOT NULL,
+        return [
+            "CREATE TABLE posttags (
                 postId INT NOT NULL,
-                FOREIGN KEY (userId) REFERENCES users(userId) ON DELETE CASCADE,
+                tagId BIGINT NOT NULL,
                 FOREIGN KEY (postId) REFERENCES posts(postId) ON DELETE CASCADE,
-                PRIMARY KEY (userId, postId)
-            )"];
+                FOREIGN KEY (tagId) REFERENCES tags(tagId) ON DELETE CASCADE,
+                PRIMARY KEY (postId, tagId)
+            )"
+        ];
     }
 
     public function down(): array
     {
         // ロールバックロジックを追加してください
         return [
-            "DROP TABLE postlikes"
+            "DROP TABLE posttags"
         ];
     }
 }
