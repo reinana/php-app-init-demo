@@ -1,22 +1,24 @@
 <?php
+
 namespace Database\Migrations;
 
 use Database\SchemaMigration;
 
-class CreateUserSettingsTable implements SchemaMigration
+class CreateSubscriptionsTable implements SchemaMigration
 {
     public function up(): array
     {
         // マイグレーションロジックをここに追加してください
         return [
-            "CREATE TABLE usersettings (
-                entityId BIGINT PRIMARY KEY AUTO_INCREMENT,
+            "CREATE TABLE subscriptions (
+                subscriptionId INT PRIMARY KEY AUTO_INCREMENT,
+                subscription VARCHAR(255),
+                subscription_status VARCHAR(255),
+                subscriptionCreatedAt DATETIME,
+                subscriptionEndsAt DATETIME,
                 userId BIGINT NOT NULL,
-                metakey VARCHAR(255) NOT NULL,
-                metaValue TEXT NOT NULL,
-                CONSTRAINT fk_usersettings_users
+                CONSTRAINT fk_subscriptions_users
                     FOREIGN KEY (userId) REFERENCES users(userId) ON DELETE CASCADE
-
             )"
         ];
     }
@@ -25,7 +27,7 @@ class CreateUserSettingsTable implements SchemaMigration
     {
         // ロールバックロジックを追加してください
         return [
-            "DROP TABLE usersettings"
+            "DROP TABLE subscriptions"
         ];
     }
 }

@@ -12,8 +12,10 @@ class CreatePostTagsTable implements SchemaMigration
             "CREATE TABLE posttags (
                 postId INT NOT NULL,
                 tagId BIGINT NOT NULL,
-                FOREIGN KEY (postId) REFERENCES posts(postId) ON DELETE CASCADE,
-                FOREIGN KEY (tagId) REFERENCES tags(tagId) ON DELETE CASCADE,
+                CONSTRAINT fk_posttags_posts
+                    FOREIGN KEY (postId) REFERENCES posts(postId) ON DELETE CASCADE,
+                CONSTRAINT fk_posttags_tags
+                    FOREIGN KEY (tagId) REFERENCES tags(tagId) ON DELETE CASCADE,
                 PRIMARY KEY (postId, tagId)
             )"
         ];

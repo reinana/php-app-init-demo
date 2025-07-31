@@ -15,7 +15,9 @@ class CreateCommentsTable implements SchemaMigration
                 postId INT NOT NULL,
                 created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
                 updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+                CONSTRAINT fk_comments_users
                 FOREIGN KEY (userId) REFERENCES users(userId) ON DELETE CASCADE,
+                CONSTRAINT fk_comments_posts
                 FOREIGN KEY (postId) REFERENCES posts(postId) ON DELETE CASCADE
             )"];
     }

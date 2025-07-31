@@ -12,8 +12,10 @@ class CreateCommentLikesTable implements SchemaMigration
             "CREATE TABLE commentlikes (
                 userId BIGINT NOT NULL,
                 commentId BIGINT NOT NULL,
-                FOREIGN KEY (userId) REFERENCES users(userId) ON DELETE CASCADE,
-                FOREIGN KEY (commentId) REFERENCES comments(commentId) ON DELETE CASCADE,
+                CONSTRAINT fk_commentlikes_users
+                    FOREIGN KEY (userId) REFERENCES users(userId) ON DELETE CASCADE,
+                CONSTRAINT fk_commentlikes_comments
+                    FOREIGN KEY (commentId) REFERENCES comments(commentId) ON DELETE CASCADE,
                 PRIMARY KEY (userId, commentId)
             )"
         ];

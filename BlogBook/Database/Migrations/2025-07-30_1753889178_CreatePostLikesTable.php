@@ -11,8 +11,10 @@ class CreatePostLikesTable implements SchemaMigration
         return ["CREATE TABLE postlikes (
                 userId BIGINT NOT NULL,
                 postId INT NOT NULL,
-                FOREIGN KEY (userId) REFERENCES users(userId) ON DELETE CASCADE,
-                FOREIGN KEY (postId) REFERENCES posts(postId) ON DELETE CASCADE,
+                CONSTRAINT fk_postlikes_users
+                    FOREIGN KEY (userId) REFERENCES users(userId) ON DELETE CASCADE,
+                CONSTRAINT fk_postlikes_posts
+                    FOREIGN KEY (postId) REFERENCES posts(postId) ON DELETE CASCADE,
                 PRIMARY KEY (userId, postId)
             )"];
     }

@@ -11,7 +11,8 @@ class AddCategoryIdToPostsTable implements SchemaMigration
         return [
             "ALTER TABLE posts 
                 ADD COLUMN categoryId BIGINT NOT NULL,
-                ADD FOREIGN KEY (categoryId) REFERENCES categories(categoryId) ON DELETE CASCADE"
+                ADD CONSTRAINT fk_posts_categories
+                    FOREIGN KEY (categoryId) REFERENCES categories(categoryId) ON DELETE CASCADE"
         ];
     }
 
@@ -20,7 +21,7 @@ class AddCategoryIdToPostsTable implements SchemaMigration
         // ロールバックロジックを追加してください
         return [
             "ALTER TABLE posts 
-                DROP FOREIGN KEY posts_categoryId_foreign,
+                DROP FOREIGN KEY fk_posts_categories,
                 DROP COLUMN categoryId"
         ];
     }
