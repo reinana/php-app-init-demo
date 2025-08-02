@@ -1,0 +1,45 @@
+
+<?php
+#!/usr/bin/env php
+
+# すべてのコマンドラインプログラムのエントリーポイントです。
+# すべてのフックされたコマンドがロードされ、コンソールが指定されたプログラムを実行します。
+# コードの実行は以下のように行います。
+# php console {program} {program_value} {--option1} {option1_value} {--option2} {option2_value} ... {--optionN} {optionN_value}
+
+
+# 値の文字列は必ずしも必要ではありません。もし値の文字列が提供されていない場合、
+# オプションが指定されていればシステムはその値を true として設定し、
+# オプションが指定されていなければ値を false として設定します。
+# ファイル名に .php の拡張子を付けずにコマンドを命名することで、
+# コマンドラインでのコマンドの実行がすっきりとして見やすくなります。
+# 言い換えれば、php console と入力するだけで、php console.php と入力する必要がなくなります。
+spl_autoload_extensions(".php");
+spl_autoload_register(function($class) {
+    $file = __DIR__ . '/'  . str_replace('\\', '/', $class). '.php';
+    if (file_exists(stream_resolve_include_path($file))) include($file);
+});
+
+$commands = include "Commands/registry.php";
+
+# // 第2引数は実行するコマンド
+$inputCommand = $argv[1];
+
+# // PHPでそれらをインスタンス化できるすべてのコマンドクラス名を通過します。
+foreach ($commands as $commandClass) {
+    $alias = $commandClass::getAlias();
+
+    if($inputCommand === $alias){
+        if(in_array('--help',$argv)){
+            fwrite(STDOUT, $commandClass::getHelp());
+            exit(0);
+        }
+        else{
+            $command = new $commandClass(); // phpの機能 変数にnewつけるとインスタンス化できる
+            $result = $command->execute();
+            exit($result);
+        }
+    }
+}
+
+fwrite(STDOUT,"Failed to run any commands\n");
