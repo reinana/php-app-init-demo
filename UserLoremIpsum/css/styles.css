@@ -1,0 +1,74 @@
+:root {
+    --bg: #f7f7fb;
+    --card: #ffffff;
+    --text: #222;
+    --muted: #666;
+    --accent: #4f46e5;
+    --border: #e6e6ef;
+}
+body {
+    margin: 0;
+    font-family: system-ui, -apple-system, Segoe UI, Roboto,
+        "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+}
+header {
+    max-width: 1000px;
+    margin: 32px auto 8px;
+    padding: 0 16px;
+}
+h1 {
+    margin: 0 0 6px;
+    font-size: 24px;
+}
+.hint {
+    color: var(--muted);
+    font-size: 14px;
+}
+
+.grid {
+    max-width: 1000px;
+    margin: 16px auto 48px;
+    padding: 0 16px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 16px;
+}
+
+/* User::toHTML() が返す .user-card に合わせた軽い整形 */
+.user-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 16px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+.user-card h2 {
+    margin: 8px 0 6px;
+    font-size: 18px;
+}
+.user-card p {
+    margin: 4px 0;
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.5;
+}
+.user-card .avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: #fff;
+    display: grid;
+    place-items: center;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.empty {
+    grid-column: 1 / -1;
+    text-align: center;
+    color: var(--muted);
+    padding: 32px 0;
+}

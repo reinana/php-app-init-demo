@@ -15,11 +15,11 @@
 </html>
 <?php 
 // リクエストヘッダを取得
-header('Content-Type: application/json');
+// header('Content-Type: application/json');
 
-$filename = 'request_headers.json';
-header(sprintf('Content-Disposition: attachment; filename="%s"', $filename));
+// $filename = 'request_headers.json';
+// header(sprintf('Content-Disposition: attachment; filename="%s"', $filename));
 
-echo json_encode(getallheaders() ?? '{}');
+// echo json_encode(getallheaders() ?? '{}');
 
 ?>
